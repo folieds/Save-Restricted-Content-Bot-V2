@@ -12,7 +12,7 @@ buttons = InlineKeyboardMarkup(
         [InlineKeyboardButton("Update", url="https://t.me/outlawbots"),
         InlineKeyboardButton("Support", url="https://t.me/offchats")],
         [ InlineKeyboardButton("Buy Premium", url= "t.me/CallAdminsRobot"),
-         InlineKeyboardButton("Devloper", url="t.me/HateXfree")]
+         InlineKeyboardButton("Help", url="https://graph.org/How-To-Use-12-04")]
     ]
 )
 
