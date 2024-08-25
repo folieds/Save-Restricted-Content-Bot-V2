@@ -20,7 +20,7 @@ async def chk_user(message, user_id):
     if user_id in user or user_id in OWNER_ID:
         return 0
     else:
-        await message.reply_text("Sir, you don't have premium access!!")
+        await message.reply_text("Sir, you don't have premium access!! \n Buy Premium @CallAdminsRobot")
         return 1
 
 
@@ -36,13 +36,13 @@ async def subscribe(app, message):
       try:
          user = await app.get_chat_member(update_channel, message.from_user.id)
          if user.status == "kicked":
-            await message.reply_text("Sorry Sir, You are Banned. Contact -- @devggn")
+            await message.reply_text("Sorry Sir, You are Banned. Contact -- @CallAdminsRobot")
             return 1
       except UserNotParticipant:
          await message.reply_photo(photo="https://graph.org/file/d44f024a08ded19452152.jpg",caption=script.FORCE_MSG.format(message.from_user.mention), reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Join Now...", url=f"{url}")]]))
          return 1
       except Exception:
-         await message.reply_text("Something Went Wrong. Contact us @devggn...")
+         await message.reply_text("Something Went Wrong. Contact us @outlawbots...")
          return 1
 
 
@@ -89,7 +89,7 @@ PROGRESS_BAR = """\n
 **__Bytes__** : {0}%
 **__Speed__** : {3}/s
 **__Time__** : {4}\n\n
-**__Powered by [Team SPY](https://t.me/devggn)__**
+**__Powered by [OUTLAW BOTS](https://t.me/outlawbots)__**
 """
 
 
