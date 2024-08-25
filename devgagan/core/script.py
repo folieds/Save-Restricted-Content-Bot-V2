@@ -3,7 +3,7 @@
 # ------------------------------------------------------------ #
 
 START_TXT = """
-<b>Hi, welcome to Content Saver Bot,\n\nDesigned to save restricted messages from public/private channels and private groups. \nFirst login in bot by /login then send post link.</b>
+<b>Hi, Welcome to Content Saver Bot,\n\nDesigned to save restricted messages from public/private channels and private groups. \nFirst login in bot by /login then send post link.</b>
 """
 
 FORCE_MSG = """
