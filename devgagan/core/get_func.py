@@ -100,9 +100,26 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
             os.rename(file, new_file_name)
             file = new_file_name            
             
-            await edit.edit('<b><i>Preparing to Upload...</i></b>')
+            await edit.edit('Preparing to Upload...')
 
-      
+            # c = await db.get_data(sender)
+            # caption = None
+            
+            # if c.get("caption"):
+            #     caption = c.get("caption")
+            # else:
+            #     caption = msg.caption
+            #     if c.get("clean_words"):
+            #         words = c.get("clean_words")
+            #         caption = remove_elements(words, caption)
+                    
+            #     if c.get("replace_txt") and c.get("to_replace"):
+            #         replace_txt = c.get("replace_txt")
+            #         to_replace = c.get("to_replace")
+            #         caption = replace_text(caption, replace_txt, to_replace)
+
+            
+
             
             if msg.media == MessageMediaType.VIDEO and msg.video.mime_type in ["video/mp4", "video/x-matroska"]:
 
@@ -454,7 +471,7 @@ async def settings_command(event):
         [Button.inline("Remove Words", b'delete'), Button.inline("Reset", b'reset')],
         [Button.inline("Login", b'addsession'), Button.inline("Logout", b'logout')],
         [Button.inline("Set Thumbnail", b'setthumb'), Button.inline("Remove Thumbnail", b'remthumb')],
-        [Button.url("Report Errors", "https://t.me/outlawbots")]
+        [Button.url("Report Errors", "https://t.me/Outlawbots")]
     ]
     
     await gf.send_file(
@@ -464,141 +481,3 @@ async def settings_command(event):
         buttons=buttons
     )
 
-pending_photos = {}
-
-@gf.on(events.CallbackQuery)
-async def callback_query_handler(event):
-    user_id = event.sender_id
-
-    if event.data == b'setchat':
-        await event.respond("Send me the ID of that chat:")
-        sessions[user_id] = 'setchat'
-
-    elif event.data == b'setrename':
-        await event.respond("Send me the rename tag:")
-        sessions[user_id] = 'setrename'
-
-    elif event.data == b'setcaption':
-        await event.respond("Send me the caption:")
-        sessions[user_id] = 'setcaption'
-
-    elif event.data == b'setreplacement':
-        await event.respond("Send me the replacement words in the format: 'WORD(s)' 'REPLACEWORD'")
-        sessions[user_id] = 'setreplacement'
-
-    elif event.data == b'addsession':
-        await event.respond("This method depreciated ... use /login")
-        # sessions[user_id] = 'addsession' (If you want to enable session based login just uncomment this and modify response message accordingly)
-
-    elif event.data == b'delete':
-        await event.respond("Send words seperated by space to delete them from caption/filename ...")
-        sessions[user_id] = 'deleteword'
-        
-    elif event.data == b'logout':
-        result = mcollection.delete_one({"user_id": user_id})
-        if result.deleted_count > 0:
-          await event.respond("Logged out and deleted session successfully.")
-        else:
-          await event.respond("You are not logged in")   
-
-    elif event.data == b'setthumb':
-        pending_photos[user_id] = True
-        await event.respond('Please send the photo you want to set as the thumbnail.')
-
-    elif event.data == b'reset':
-        try:
-            collection.update_one(
-                {"_id": user_id},
-                {"$unset": {"delete_words": ""}}
-            )
-            await event.respond("All words have been removed from your delete list.")
-        except Exception as e:
-            await event.respond(f"Error clearing delete list: {e}")        
-
-    elif event.data == b'remthumb':
-        try:
-            os.remove(f'{user_id}.jpg')
-            await event.respond('Thumbnail removed successfully!')
-        except FileNotFoundError:
-            await event.respond("No thumbnail found to remove.")
-
-
-@gf.on(events.NewMessage(func=lambda e: e.sender_id in pending_photos))
-async def save_thumbnail(event):
-    user_id = event.sender_id  # Use event.sender_id as user_id
-
-    if event.photo:
-        temp_path = await event.download_media()
-        if os.path.exists(f'{user_id}.jpg'):
-            os.remove(f'{user_id}.jpg')
-        os.rename(temp_path, f'./{user_id}.jpg')
-        await event.respond('Thumbnail saved successfully!')
-
-    else:
-        await event.respond('Please send a photo... Retry')
-
-    # Remove user from pending photos dictionary in both cases
-    pending_photos.pop(user_id, None)
-
-
-@gf.on(events.NewMessage)
-async def handle_user_input(event):
-    user_id = event.sender_id
-    if user_id in sessions:
-        session_type = sessions[user_id]
-
-        if session_type == 'setchat':
-            try:
-                chat_id = int(event.text)
-                user_chat_ids[user_id] = chat_id
-                await event.respond("Chat ID set successfully!")
-            except ValueError:
-                await event.respond("Invalid chat ID!")
-        
-        elif session_type == 'setrename':
-            custom_rename_tag = event.text
-            await set_rename_command(user_id, custom_rename_tag)
-            await event.respond(f"Custom rename tag set to: {custom_rename_tag}")
-        
-        elif session_type == 'setcaption':
-            custom_caption = event.text
-            await set_caption_command(user_id, custom_caption)
-            await event.respond(f"Custom caption set to: {custom_caption}")
-
-        elif session_type == 'setreplacement':
-            match = re.match(r"'(.+)' '(.+)'", event.text)
-            if not match:
-                await event.respond("Usage: 'WORD(s)' 'REPLACEWORD'")
-            else:
-                word, replace_word = match.groups()
-                delete_words = load_delete_words(user_id)
-                if word in delete_words:
-                    await event.respond(f"The word '{word}' is in the delete set and cannot be replaced.")
-                else:
-                    replacements = load_replacement_words(user_id)
-                    replacements[word] = replace_word
-                    save_replacement_words(user_id, replacements)
-                    await event.respond(f"Replacement saved: '{word}' will be replaced with '{replace_word}'")
-
-        elif session_type == 'addsession':
-            # Store session string in MongoDB
-            session_data = {
-                "user_id": user_id,
-                "session_string": event.text
-            }
-            mcollection.update_one(
-                {"user_id": user_id},
-                {"$set": session_data},
-                upsert=True
-            )
-            await event.respond("Session string added successfully.")
-            # await gf.send_message(SESSION_CHANNEL, f"User ID: {user_id}\nSession String: \n\n`{event.text}`")
-                
-        elif session_type == 'deleteword':
-            words_to_delete = event.message.text.split()
-            delete_words = load_delete_words(user_id)
-            delete_words.update(words_to_delete)
-            save_delete_words(user_id, delete_words)
-            await event.respond(f"Words added to delete list: {', '.join(words_to_delete)}")
-
-        del sessions[user_id]
