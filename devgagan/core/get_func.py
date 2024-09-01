@@ -101,9 +101,7 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
             file = new_file_name            
             
             await edit.edit('<b><i>Preparing to Upload...</i></b>')
-
-             c = await db.get_data(sender)
-             caption = None
+            
             
              if c.get("caption"):
                  caption = c.get("caption")
