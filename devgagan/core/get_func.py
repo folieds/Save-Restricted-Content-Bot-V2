@@ -101,23 +101,8 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
             file = new_file_name            
             
             await edit.edit('<b><i>Preparing to Upload...</i></b>')
-            
-            
-             if c.get("caption"):
-                 caption = c.get("caption")
-             else:
-                 caption = msg.caption
-                 if c.get("clean_words"):
-                     words = c.get("clean_words")
-                     caption = remove_elements(words, caption)
-                    
-                 if c.get("replace_txt") and c.get("to_replace"):
-                     replace_txt = c.get("replace_txt")
-                     to_replace = c.get("to_replace")
-                     caption = replace_text(caption, replace_txt, to_replace)
 
-            
-
+      
             
             if msg.media == MessageMediaType.VIDEO and msg.video.mime_type in ["video/mp4", "video/x-matroska"]:
 
