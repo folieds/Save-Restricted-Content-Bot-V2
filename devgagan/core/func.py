@@ -22,8 +22,8 @@ async def chk_user(message, user_id):
     else:
         keyboard = InlineKeyboardMarkup([
             [InlineKeyboardButton("Cʟɪᴄᴋ Hᴇʀᴇ ᴛᴏ Sᴇᴇ Pʟᴀɴs", url="https://t.me/OutlawBots/47")],
-            [InlineKeyboardButton("ʟᴇᴇᴄʜ ɢʀᴏᴜᴘ ", url="https://t.me/LuffyLeechGroup"),
-             InlineKeyboardButton("ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ", url="https://t.me/ifeelscam")]
+            [InlineKeyboardButton("ʟᴇᴇᴄʜ ɢʀᴏᴜᴘ ", url="https://t.me/LuffyLeech"),
+             InlineKeyboardButton("ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ", url="https://t.me/faony")]
         ])
         
         await message.reply_text(
