@@ -21,13 +21,13 @@ async def chk_user(message, user_id):
         return 0
     else:
         keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton("Cʟɪᴄᴋ Hᴇʀᴇ ᴛᴏ Sᴇᴇ Pʟᴀɴs", url="https://t.me/OutlawBots/47")],
+            [InlineKeyboardButton("Cʟɪᴄᴋ Hᴇʀᴇ ᴛᴏ Sᴇᴇ Pʟᴀɴs", url="https://t.me/faony")],
             [InlineKeyboardButton("ʟᴇᴇᴄʜ ɢʀᴏᴜᴘ ", url="https://t.me/LuffyLeech"),
              InlineKeyboardButton("ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ", url="https://t.me/faony")]
         ])
         
         await message.reply_text(
-            "<b>Hᴇʏ Bʀᴏ/Sɪs ,\n\n<blockquote>Yᴏᴜ Dᴏɴ'ᴛ ʜᴀᴠᴇ ᴀɴʏ Pʀᴇᴍɪᴜᴍ Pʟᴀɴs !! </blockquote>\n\nIғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ʀᴇsᴛʀɪᴄᴛᴇᴅ Cᴏɴᴛᴇɴᴛ ғᴏʀᴍ ᴀɴʏ Bᴏᴛ / Cʜᴀɴɴᴇʟ / Gʀᴏᴜᴘ !! ᴛʜᴇɴ ᴘᴜʀᴄʜᴀsᴇ Oᴜʀ Pʀᴇᴍɪᴜᴍ Pʟᴀɴ ᴀᴛ ᴀғғᴏʀᴅᴀʙʟᴇ ᴘʀɪᴄᴇ ᴛᴏ ᴜsᴇ ᴛʜᴇ ʙᴏᴛ !!\n\n<i>Pᴏᴡᴇʀᴇᴅ ʙʏ <a href=https://t.me/OutlawBots>Oᴜᴛʟᴀᴡʙᴏᴛs</a></i></b>",
+            "<b>Hᴇʏ Bʀᴏ/Sɪs ,\n\n<blockquote>Yᴏᴜ Dᴏɴ'ᴛ ʜᴀᴠᴇ ᴀɴʏ Pʀᴇᴍɪᴜᴍ Pʟᴀɴs !! </blockquote>\n\nIғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ʀᴇsᴛʀɪᴄᴛᴇᴅ Cᴏɴᴛᴇɴᴛ ғᴏʀᴍ ᴀɴʏ Bᴏᴛ / Cʜᴀɴɴᴇʟ / Gʀᴏᴜᴘ !! ᴛʜᴇɴ ᴘᴜʀᴄʜᴀsᴇ Oᴜʀ Pʀᴇᴍɪᴜᴍ Pʟᴀɴ ᴀᴛ ᴀғғᴏʀᴅᴀʙʟᴇ ᴘʀɪᴄᴇ ᴛᴏ ᴜsᴇ ᴛʜᴇ ʙᴏᴛ !!\n\n<i>Pᴏᴡᴇʀᴇᴅ ʙʏ <a href=https://t.me/Pythonbotz>Python Botz</a></i></b>",
             reply_markup=keyboard,
             disable_web_page_preview=True
         )
