@@ -99,7 +99,7 @@ PROGRESS_BAR = """\n
 **__Bytes__** : {0}%
 **__Speed__** : {3}/s
 **__Time__** : {4}\n\n
-**__Powered by [OUTLAW BOTS](https://t.me/outlawbots)__**
+**__Powered by [Python Botz](https://t.me/Pythonbotz)__**
 """
 
 
